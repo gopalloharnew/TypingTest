@@ -1,0 +1,17 @@
+:root {
+  color-scheme: light;
+  --bg-100: hsl(220, 30%, 90%);
+  --bg-200: hsl(220, 95%, 95%);
+  --text-100: hsl(220, 10%, 10%);
+  --theme-accent: hsl(205, 100%, 50%);
+  --selection-bg: hsl(205, 100%, 50%, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg-100: hsl(220, 10%, 10%);
+    --bg-200: hsl(220, 20%, 15%);
+    --text-100: hsl(205, 90%, 90%);
+  }
+}
