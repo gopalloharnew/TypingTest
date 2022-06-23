@@ -1,5 +1,7 @@
-:root {
+:root,
+:root[data-theme="Light"] {
   color-scheme: light;
+  font-weight: 500;
   --bg-100: hsl(220, 30%, 90%);
   --bg-200: hsl(220, 95%, 95%);
   --text-100: hsl(220, 10%, 10%);
@@ -7,11 +9,12 @@
   --selection-bg: hsl(205, 100%, 50%, 0.1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-    --bg-100: hsl(220, 10%, 10%);
-    --bg-200: hsl(220, 20%, 15%);
-    --text-100: hsl(205, 90%, 90%);
-  }
+:root[data-theme="Dark"] {
+  color-scheme: dark;
+  font-weight: 400;
+  --bg-100: hsl(220, 10%, 10%);
+  --bg-200: hsl(220, 20%, 15%);
+  --text-100: hsl(205, 90%, 90%);
+  --theme-accent: hsl(205, 100%, 50%);
+  --selection-bg: hsl(205, 100%, 50%, 0.1);
 }

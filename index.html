@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme>
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -7,11 +7,44 @@
     <link rel="shortcut icon" href="t.svg" type="image/svg" />
     <link rel="stylesheet" href="css/colors.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/toolbar.css" />
     <link rel="stylesheet" href="css/typing-test.css" />
+    <script defer src="js/theme.js"></script>
     <script type="module" src="js/typing-test.js"></script>
     <title>Typing Test</title>
   </head>
   <body>
-    <div id="typingBox"></div>
+    <div id="typingBox">
+      <div class="toolbar">
+        <div class="theme-button-wraper">
+          <button
+            class="theme-button"
+            aria-label="Switch Theme"
+            type="button"
+            data-theme-button
+          >
+            <div class="theme-icon mask-icon"></div>
+            <span class="theme-span">Theme</span>
+          </button>
+        </div>
+        <div class="restart-button-wraper">
+          <button
+            class="restart-button"
+            data-restart-button
+            aria-label="Restart Test"
+            type="button"
+          >
+            <div class="restart-icon mask-icon"></div>
+            <span>Restart Test</span>
+          </button>
+        </div>
+        <div class="timer-wraper">
+          <div class="timer-wraper">
+            <div class="timer-icon mask-icon"></div>
+            <span timer-span class="timer-span">0:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
