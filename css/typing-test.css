@@ -10,6 +10,7 @@
   position: relative;
   margin-top: 2rem;
   margin-bottom: 2rem;
+  transition: background-color var(--transition-duration) ease;
 }
 
 .quote-span-wraper,
@@ -22,6 +23,7 @@
   border-radius: 0.25rem;
   padding: var(--padding-y) var(--padding-x);
   font-family: "Roboto Mono", monospace;
+  font-weight: inherit;
   font-size: 1rem;
   background-color: transparent;
   outline: none;
@@ -52,8 +54,12 @@
   opacity: 0.4;
 }
 
-.typing-area:focus {
+.typing-area:hover {
   border-color: hsla(205, 100%, 50%, 0.5);
+}
+
+.typing-area:focus {
+  border-color: hsla(205, 100%, 50%, 01);
 }
 
 .quote-span-wraper > span {

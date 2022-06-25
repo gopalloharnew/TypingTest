@@ -50,6 +50,7 @@ async function restart() {
   await getQuoteReady()
 
   quoteSpanWraper.innerHTML = ""
+  typingArea.value = ""
   quoteSpanArray.forEach((e, i) => {
     if (i === 0) e.classList.add("cursor")
     quoteSpanWraper.append(e)
