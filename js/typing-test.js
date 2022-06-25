@@ -1,9 +1,12 @@
+import { formateTime } from "./utils.js"
+
 const RANDOM_QUOTE_API_URL = "https://api.quotable.io/random"
 
 const typingArea = document.querySelector("[data-typing-area]")
 const quoteSpanWraper = document.querySelector("[data-quote-span-wraper]")
 const restartButton = document.querySelector("[data-restart-button]")
 const timerWraper = document.querySelector("[data-timer-wraper]")
+const timerSpan = document.querySelector("[data-timer-span]")
 const loadingIcon = document.querySelector("[data-loading-icon]")
 const typingContentWraper = document.querySelector(
   "[data-typing-content-wraper]"
@@ -65,12 +68,22 @@ function reset() {
   show(loadingIcon)
   quoteSpanWraper.innerHTML = ""
   typingArea.value = ""
+  timerSpan.textContent = formateTime(0)
   testStart = false
+}
+
+function paintTimer() {
+  let currentTime = new Date()
+  timerSpan.textContent = formateTime((currentTime - testStartTime) / 1000)
+  if (testStart) {
+    window.requestAnimationFrame(paintTimer)
+  }
 }
 
 function startTest() {
   testStart = true
   testStartTime = new Date()
+  window.requestAnimationFrame(paintTimer)
 }
 
 function endTest() {
@@ -78,6 +91,7 @@ function endTest() {
   testEndTime = new Date()
   let timeTaken = (testEndTime - testStartTime) / 1000
   showResult(timeTaken)
+  timerSpan.textContent = formateTime(timeTaken)
 }
 
 function typingLoop() {
