@@ -8,11 +8,12 @@ const restartButton = document.querySelector("[data-restart-button]")
 const timerWraper = document.querySelector("[data-timer-wraper]")
 const timerSpan = document.querySelector("[data-timer-span]")
 const loadingIcon = document.querySelector("[data-loading-icon]")
+const resultWraper = document.querySelector("[data-result-wraper]")
 const typingContentWraper = document.querySelector(
   "[data-typing-content-wraper]"
 )
 
-let quote, quoteSpanArray, testStart, testStartTime, testEndTime
+let quote, quoteSpanArray, testStart, testStartTime, testEndTime, mistakes
 
 function hide(...items) {
   items.forEach((item) => {
@@ -37,6 +38,7 @@ async function getQuoteReady() {
     // quote = await fetchQuote()
   } catch (error) {
     console.log(error)
+    restart()
   }
 
   // for testing purpose
@@ -44,6 +46,7 @@ async function getQuoteReady() {
     "Friendship is held to be the severest test of character. It is easy, we think, to be loyal to a family and clan, whose blood is in your own veins.",
     "someone",
   ]
+  quote = ["Friendship is held to be the severest test", "someone"]
 
   quoteSpanArray = quote[0].split("").map(populateQuote)
   return new Promise((r) => r())
@@ -64,7 +67,7 @@ function setTypingAreaRect() {
 }
 
 function reset() {
-  hide(restartButton, timerWraper, typingContentWraper)
+  hide(restartButton, timerWraper, typingContentWraper, resultWraper)
   show(loadingIcon)
   quoteSpanWraper.innerHTML = ""
   typingArea.value = ""
@@ -81,6 +84,7 @@ function paintTimer() {
 }
 
 function startTest() {
+  mistakes = 0
   testStart = true
   testStartTime = new Date()
   window.requestAnimationFrame(paintTimer)
@@ -112,11 +116,34 @@ function typingLoop() {
   }
 }
 
-function showResult(timeTaken) {}
+function showResult(timeTaken) {
+  hide(typingContentWraper)
+  let accuracy = ((1 - mistakes / quoteSpanArray.length) * 100).toFixed(2)
+  let speed = parseInt(
+    ((quoteSpanArray.length * 12) / timeTaken) * (accuracy / 100)
+  )
+
+  document.querySelector("[data-result-author]").textContent = quote[1]
+  document.querySelector("[data-result-speed]").textContent = speed + " wpm"
+  document.querySelector("[data-result-accuracy]").textContent = accuracy + "%"
+  document.querySelector("[data-result-time-taken]").textContent =
+    formateTime(timeTaken)
+  setTimeout(() => {
+    show(resultWraper)
+  }, 250)
+}
 
 function typingAreaInput() {
-  if (!testStart && typingArea.value.length == 1) startTest()
-  if (testStart && typingArea.value.length >= quoteSpanArray.length) endTest()
+  let typedLength = typingArea.value.length
+  if (!testStart && typedLength == 1) startTest()
+  if (testStart && typedLength >= quoteSpanArray.length) endTest()
+  if (
+    quoteSpanArray[typedLength - 1] !== undefined &&
+    typingArea.value[typedLength - 1] !=
+      quoteSpanArray[typedLength - 1].textContent
+  ) {
+    mistakes++
+  }
   typingLoop()
 }
 

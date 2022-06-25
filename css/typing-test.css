@@ -1,7 +1,7 @@
 #typingBox {
   width: 90%;
   max-width: 800px;
-  min-height: 235px;
+  min-height: 260px;
   background-color: var(--bg-200);
   padding: 1rem;
   border-radius: 0.25rem;
@@ -11,6 +11,10 @@
   margin-top: 2rem;
   margin-bottom: 2rem;
   transition: background-color var(--transition-duration) ease-in-out;
+}
+
+.content-wraper {
+  position: relative;
 }
 
 .typing-content-wraper {
@@ -43,25 +47,6 @@
 
 .quote-span-wraper {
   border-color: transparent;
-}
-
-.typing-area {
-  resize: none;
-  border-color: hsla(205, 100%, 50%, 0.25);
-  caret-color: var(--theme-accent);
-}
-
-.typing-area::placeholder {
-  color: inherit;
-  opacity: 0.4;
-}
-
-.typing-area:hover {
-  border-color: hsla(205, 100%, 50%, 0.5);
-}
-
-.typing-area:focus {
-  border-color: hsla(205, 100%, 50%, 01);
 }
 
 .quote-span-wraper > span {
@@ -102,6 +87,25 @@
   }
 }
 
+.typing-area {
+  resize: none;
+  border-color: hsla(205, 100%, 50%, 0.25);
+  caret-color: var(--theme-accent);
+}
+
+.typing-area::placeholder {
+  color: inherit;
+  opacity: 0.4;
+}
+
+.typing-area:hover {
+  border-color: hsla(205, 100%, 50%, 0.5);
+}
+
+.typing-area:focus {
+  border-color: hsla(205, 100%, 50%, 01);
+}
+
 .loading-icon {
   --size: 2rem;
   width: var(--size);
@@ -124,6 +128,18 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+.result-wraper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: opacity calc(var(--transition-duration) / 2) ease-in-out;
+}
+
+.result-wraper td {
+  padding: 0.25rem 1rem;
 }
 
 .hide,

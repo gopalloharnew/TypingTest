@@ -53,8 +53,7 @@
   padding-right: 0.5rem;
   border-radius: 0.25rem;
   transition: background-color var(--transition-duration) ease-in-out,
-    opacity calc(var(--transition-duration) / 2)
-      calc(var(--transition-duration) / 2) ease-in-out;
+    opacity calc(var(--transition-duration) / 2);
 }
 
 .restart-button:hover,
