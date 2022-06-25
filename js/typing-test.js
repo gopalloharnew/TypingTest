@@ -1,4 +1,4 @@
-import { formateTime } from "./utils.js"
+import { formateTime, hide, show } from "./utils.js"
 
 const RANDOM_QUOTE_API_URL = "https://api.quotable.io/random"
 
@@ -9,47 +9,38 @@ const timerWraper = document.querySelector("[data-timer-wraper]")
 const timerSpan = document.querySelector("[data-timer-span]")
 const loadingIcon = document.querySelector("[data-loading-icon]")
 const resultWraper = document.querySelector("[data-result-wraper]")
+const errorElement = document.querySelector("[data-error]")
 const typingContentWraper = document.querySelector(
   "[data-typing-content-wraper]"
 )
 
 let quote, quoteSpanArray, testStart, testStartTime, testEndTime, mistakes
 
-function hide(...items) {
-  items.forEach((item) => {
-    item.classList.add("hide")
-  })
-}
-
-function show(...items) {
-  items.forEach((item) => {
-    item.classList.remove("hide")
-  })
-}
-
+// handle quote
 async function fetchQuote() {
-  let response = await fetch(RANDOM_QUOTE_API_URL)
-  let data = await response.json()
+  let data
+  try {
+    let response = await fetch(RANDOM_QUOTE_API_URL)
+    data = await response.json()
+  } catch (error) {
+    return false
+  }
   return [data.content, data.author]
 }
 
 async function getQuoteReady() {
   try {
-    // quote = await fetchQuote()
+    quote = await fetchQuote()
+    if (quote === false) {
+      return "Failed"
+    }
   } catch (error) {
     console.log(error)
-    restart()
+    return "Failed"
   }
 
-  // for testing purpose
-  quote = [
-    "Friendship is held to be the severest test of character. It is easy, we think, to be loyal to a family and clan, whose blood is in your own veins.",
-    "someone",
-  ]
-  quote = ["Friendship is held to be the severest test", "someone"]
-
   quoteSpanArray = quote[0].split("").map(populateQuote)
-  return new Promise((r) => r())
+  return new Promise((r) => r("Fetched"))
 }
 
 function populateQuote(char) {
@@ -61,16 +52,24 @@ function populateQuote(char) {
   return span
 }
 
+// typingArea
 function setTypingAreaRect() {
   typingArea.style.height = quoteSpanWraper.offsetHeight + "px"
   typingArea.style.width = quoteSpanWraper.offsetWidth + "px"
 }
 
 function reset() {
-  hide(restartButton, timerWraper, typingContentWraper, resultWraper)
+  hide(
+    restartButton,
+    timerWraper,
+    typingContentWraper,
+    resultWraper,
+    errorElement
+  )
   show(loadingIcon)
   quoteSpanWraper.innerHTML = ""
   typingArea.value = ""
+  quote = ["", ""]
   timerSpan.textContent = formateTime(0)
   testStart = false
 }
@@ -118,7 +117,8 @@ function typingLoop() {
 
 function showResult(timeTaken) {
   hide(typingContentWraper)
-  let accuracy = ((1 - mistakes / quoteSpanArray.length) * 100).toFixed(2)
+  let accuracy = (100 - (mistakes / quoteSpanArray.length) * 100).toFixed(1)
+  if (accuracy < 0) accuracy = 0
   let speed = parseInt(
     ((quoteSpanArray.length * 12) / timeTaken) * (accuracy / 100)
   )
@@ -136,7 +136,6 @@ function showResult(timeTaken) {
 function typingAreaInput() {
   let typedLength = typingArea.value.length
   if (!testStart && typedLength == 1) startTest()
-  if (testStart && typedLength >= quoteSpanArray.length) endTest()
   if (
     quoteSpanArray[typedLength - 1] !== undefined &&
     typingArea.value[typedLength - 1] !=
@@ -145,35 +144,36 @@ function typingAreaInput() {
     mistakes++
   }
   typingLoop()
+  if (testStart && typedLength >= quoteSpanArray.length) endTest()
 }
 
 // load
 
-if (document.readyState === null || document.readyState === "loading") {
-  document.addEventListener("load", () => typingArea.focus())
-} else {
-  typingArea.focus()
-}
 window.addEventListener("resize", setTypingAreaRect)
 setTypingAreaRect()
-// typingArea.addEventListener("paste", (e) => e.preventDefault())
+typingArea.addEventListener("paste", (e) => e.preventDefault())
 
 // main
 
 async function restart() {
   reset()
-  await getQuoteReady()
+  let quoteResponse = await getQuoteReady()
+  if (quoteResponse === "Failed") {
+    show(restartButton, errorElement)
+    hide(loadingIcon)
+  } else {
+    quoteSpanArray.forEach((e, i) => {
+      if (i === 0) e.classList.add("cursor")
+      quoteSpanWraper.append(e)
+      setTypingAreaRect()
+    })
 
-  quoteSpanArray.forEach((e, i) => {
-    if (i === 0) e.classList.add("cursor")
-    quoteSpanWraper.append(e)
-    setTypingAreaRect()
-  })
+    typingArea.addEventListener("input", typingAreaInput)
+    typingArea.focus()
 
-  typingArea.addEventListener("input", typingAreaInput)
-
-  show(restartButton, timerWraper, typingContentWraper)
-  hide(loadingIcon)
+    show(restartButton, timerWraper, typingContentWraper)
+    hide(loadingIcon)
+  }
   restartButton.addEventListener("click", restart, { once: true })
 }
 

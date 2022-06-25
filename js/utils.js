@@ -4,3 +4,15 @@ export function formateTime(seconds) {
   seconds = seconds.slice(seconds.length - 2)
   return `${minutes}:${seconds}`
 }
+
+export function hide(...items) {
+  items.forEach((item) => {
+    item.classList.add("hide")
+  })
+}
+
+export function show(...items) {
+  items.forEach((item) => {
+    item.classList.remove("hide")
+  })
+}

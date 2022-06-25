@@ -17,7 +17,7 @@
 :root {
   font-size: 16px;
   letter-spacing: 1px;
-  --transition-duration: 400ms;
+  --transition-duration: 250ms;
 }
 
 body {

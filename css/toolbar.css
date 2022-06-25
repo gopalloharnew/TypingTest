@@ -61,15 +61,25 @@
 .restart-button:focus-visible,
 .theme-button:focus-visible {
   background-color: var(--bg-300);
+  color: var(--theme-accent);
+}
+
+.restart-button:hover .mask-icon,
+.theme-button:hover .mask-icon,
+.restart-button:focus-visible .mask-icon,
+.theme-button:focus-visible .mask-icon {
+  color: var(--theme-accent);
 }
 
 .timer-icon {
   --mask-image-url: url("../icons/timer-icon.svg");
+  color: var(--theme-accent);
 }
 
 .timer-wraper {
   display: flex;
   padding-right: 0.25rem;
+  color: var(--theme-accent);
   transition: opacity calc(var(--transition-duration) / 2) ease-in-out;
 }
 
