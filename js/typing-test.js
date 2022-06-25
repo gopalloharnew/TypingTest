@@ -49,7 +49,9 @@ async function getQuoteReady() {
 function populateQuote(char) {
   const span = document.createElement("span")
   span.textContent = char
-  span.classList.toggle("space", char == " ")
+  if (char == " ") {
+    span.classList.add("space")
+  }
   return span
 }
 
@@ -74,7 +76,8 @@ function startTest() {
 function endTest() {
   testStart = false
   testEndTime = new Date()
-  timeTaken = (testEndTime - testStartTime) / 1000
+  let timeTaken = (testEndTime - testStartTime) / 1000
+  showResult(timeTaken)
 }
 
 function typingLoop() {
@@ -94,6 +97,8 @@ function typingLoop() {
     }
   }
 }
+
+function showResult(timeTaken) {}
 
 function typingAreaInput() {
   if (!testStart && typingArea.value.length == 1) startTest()

@@ -68,6 +68,12 @@
   animation: none;
 }
 
+.quote-span-wraper > span.space {
+  display: inline-block;
+  width: 1ch;
+  transform: translateY(6px);
+}
+
 .quote-span-wraper > span.cursor {
   animation: cursorBlink 530ms 200ms infinite steps(1) alternate;
   border-bottom: 2px solid var(--theme-accent);
