@@ -6,8 +6,10 @@
   --bg-200: hsl(220, 95%, 96%);
   --bg-300: hsl(220, 55%, 90%);
   --text-100: hsl(220, 10%, 10%);
-  --theme-accent: hsl(205, 100%, 50%);
-  --selection-bg: hsl(205, 100%, 50%, 0.2);
+  --theme-accent: hsl(200, 100%, 50%);
+  --selection-bg: hsl(200, 100%, 50%, 0.2);
+  --red: hsl(0, 100%, 40%);
+  --green: hsl(120, 100%, 40%);
   --theme-icon-transform: rotate(0deg) scale(0.9);
 }
 
@@ -18,7 +20,9 @@
   --bg-200: hsl(220, 20%, 15%);
   --bg-300: hsl(220, 20%, 25%);
   --text-100: hsl(205, 90%, 90%);
-  --theme-accent: hsl(205, 100%, 50%);
-  --selection-bg: hsl(205, 100%, 50%, 0.2);
+  --theme-accent: hsl(195, 100%, 50%);
+  --selection-bg: hsl(195, 100%, 50%, 0.2);
+  --red: hsl(20, 100%, 50%);
+  --green: hsl(140, 100%, 50%);
   --theme-icon-transform: rotate(360deg) scale(0.9);
 }
