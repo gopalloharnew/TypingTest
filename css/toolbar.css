@@ -25,14 +25,14 @@
 
   background-color: currentColor;
   color: var(--text-100);
-  transition: color calc(var(--transition-duration) / 4) ease;
+  transition: color calc(var(--transition-duration) / 4) ease-in-out;
 }
 
 .theme-icon {
   --mask-image-url: url("../icons/theme-icon.svg");
   transform: var(--theme-icon-transform);
-  transition: transform var(--transition-duration) ease,
-    color calc(var(--transition-duration) / 4) ease;
+  transition: transform var(--transition-duration) ease-in-out,
+    color calc(var(--transition-duration) / 4) ease-in-out;
 }
 
 .restart-icon {
@@ -46,7 +46,8 @@
   cursor: pointer;
   padding-right: 0.5rem;
   border-radius: 0.25rem;
-  transition: background-color var(--transition-duration) ease;
+  transition: background-color var(--transition-duration) ease-in-out,
+    opacity calc(var(--transition-duration) / 2) ease-in-out;
 }
 
 .restart-button:hover,
@@ -63,6 +64,7 @@
 .timer-wraper {
   display: flex;
   padding-right: 0.25rem;
+  transition: opacity calc(var(--transition-duration) / 2) ease-in-out;
 }
 
 .timer-span {

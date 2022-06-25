@@ -38,20 +38,28 @@
             <span>Restart Test</span>
           </button>
         </div>
-        <div class="timer-wraper">
+        <div class="timer-wraper" data-timer-wraper>
           <div class="timer-icon mask-icon"></div>
           <span timer-span class="timer-span">0:00</span>
         </div>
       </div>
-      <div class="typing-content-wraper">
+      <div class="typing-content-wraper" data-typing-content-wraper>
         <div class="quote-span-wraper" data-quote-span-wraper></div>
         <textarea
           class="typing-area"
           placeholder="Start Typing Here"
           data-typing-area
+          autocapitalize="none"
+          autocomplete="off"
+          autocorrect="off"
+          tabindex="0"
+          spellcheck="false"
+          aria-label="Type Here"
+          dir="ltr"
         ></textarea>
       </div>
       <div class="typing-result hide"></div>
+      <div class="loading-icon" data-loading-icon=""></div>
     </div>
   </body>
 </html>

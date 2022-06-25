@@ -3,8 +3,8 @@
   color-scheme: light;
   font-weight: 500;
   --bg-100: hsl(220, 30%, 90%);
-  --bg-200: hsl(220, 95%, 95%);
-  --bg-300: hsl(220, 55%, 85%);
+  --bg-200: hsl(220, 95%, 96%);
+  --bg-300: hsl(220, 55%, 90%);
   --text-100: hsl(220, 10%, 10%);
   --theme-accent: hsl(205, 100%, 50%);
   --selection-bg: hsl(205, 100%, 50%, 0.2);

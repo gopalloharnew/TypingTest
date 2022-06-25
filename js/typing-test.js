@@ -3,8 +3,25 @@ const RANDOM_QUOTE_API_URL = "https://api.quotable.io/random"
 const typingArea = document.querySelector("[data-typing-area]")
 const quoteSpanWraper = document.querySelector("[data-quote-span-wraper]")
 const restartButton = document.querySelector("[data-restart-button]")
+const timerWraper = document.querySelector("[data-timer-wraper]")
+const loadingIcon = document.querySelector("[data-loading-icon]")
+const typingContentWraper = document.querySelector(
+  "[data-typing-content-wraper]"
+)
 
 let quote, quoteSpanArray
+
+function hide(...items) {
+  items.forEach((item) => {
+    item.classList.add("hide")
+  })
+}
+
+function show(...items) {
+  items.forEach((item) => {
+    item.classList.remove("hide")
+  })
+}
 
 async function fetchQuote() {
   let response = await fetch(RANDOM_QUOTE_API_URL)
@@ -47,6 +64,8 @@ setTypingAreaRect()
 // main
 
 async function restart() {
+  hide(restartButton, timerWraper, typingContentWraper)
+  show(loadingIcon)
   await getQuoteReady()
 
   quoteSpanWraper.innerHTML = ""
@@ -56,7 +75,10 @@ async function restart() {
     quoteSpanWraper.append(e)
     setTypingAreaRect()
   })
+
+  show(restartButton, timerWraper, typingContentWraper)
+  hide(loadingIcon)
+  restartButton.addEventListener("click", restart, { once: true })
 }
 
 restart()
-restartButton.addEventListener("click", restart)

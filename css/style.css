@@ -17,7 +17,7 @@
 :root {
   font-size: 16px;
   letter-spacing: 1px;
-  --transition-duration: 500ms;
+  --transition-duration: 400ms;
 }
 
 body {
@@ -25,8 +25,8 @@ body {
   min-height: 100vh;
   background-color: var(--bg-100);
   color: var(--text-100);
-  transition: background-color var(--transition-duration) ease,
-    color var(--transition-duration) ease;
+  transition: background-color var(--transition-duration) ease-in-out,
+    color var(--transition-duration) ease-in-out;
   display: flex;
   align-items: center;
   justify-content: center;
